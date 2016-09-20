@@ -9,4 +9,3 @@ To start the app:
 5. Run the server:
  - Linux: DEBUG=nodebackup:* npm start
  - Windows: set DEBUG=nodebackup:* & npm start
-6. In different terminal window/tab run the 'compass watch' command, to build the scss files to css.
