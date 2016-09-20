@@ -5,7 +5,8 @@ To start the app:
 1. Install packages: npm install
 2. Install ruby
 3. Install compass (gem install compass)
-4. Run the server:
+4. Run grunt watch: 'grunt watch' to autocompile the scss files on change.
+5. Run the server:
  - Linux: DEBUG=nodebackup:* npm start
  - Windows: set DEBUG=nodebackup:* & npm start
-5. In different terminal window/tab run the 'compass watch' command, to build the scss files to css.
+6. In different terminal window/tab run the 'compass watch' command, to build the scss files to css.
