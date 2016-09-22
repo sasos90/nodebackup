@@ -11,23 +11,23 @@
         "debug": "~2.2.0",
         "express": "~4.13.4",
         "jade": "~1.11.0",
+        "mongodb": "^2.2.10",
         "morgan": "~1.7.0",
         "node-compass": "0.2.3",
         "serve-favicon": "~2.3.0"
     },
-    "devDependencies" : {
-        "grunt" :                   "*",
-        "grunt-htmlhint" :          "*",
-        "grunt-contrib-jshint":     "*",
-        "grunt-contrib-sass" :      "*",
-        "grunt-contrib-cssmin" :    "*",
-        "grunt-contrib-uglify" :    "*",
-        "grunt-contrib-concat" :    "*",
-        "grunt-contrib-copy":       "*",
-        "grunt-contrib-compass" :   "*",
-        "grunt-contrib-watch" :     "*",
-        "grunt-cssc":               "*",
-        "grunt-autoprefixer":       "*",
-        "matchdep" :                "*"
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-htmlhint": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-sass": "*",
+        "grunt-contrib-cssmin": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-copy": "*",
+        "grunt-contrib-compass": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-autoprefixer": "*",
+        "matchdep": "*"
     }
 }
