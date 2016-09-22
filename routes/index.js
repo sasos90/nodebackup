@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
         // create collections in case they doesn't exist
         console.log("Start creating collections");
-        createCollections(db, 0, function() {
+        createCollections(db, function() {
 
             // we start here!
             console.log("Really done");
@@ -31,12 +31,12 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-function createCollections(db, index, callback) {
+function createCollections(db, callback, index = 0) {
 
     if (collectionList.length !== index ) {
         db.createCollection(collectionList[index]).then(function() {
             console.log("Created " + collectionList[index]);
-            createCollections(db, ++index, callback);
+            createCollections(db, callback, ++index);
         });
     } else {
         // done
