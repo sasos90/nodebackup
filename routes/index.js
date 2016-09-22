@@ -33,7 +33,7 @@ router.get('/', function(req, res, next) {
 
 function createCollections(db, callback, index = 0) {
 
-    if (collectionList.length !== index ) {
+    if (collectionList.length !== index) {
         db.createCollection(collectionList[index]).then(function() {
             console.log("Created " + collectionList[index]);
             createCollections(db, callback, ++index);
