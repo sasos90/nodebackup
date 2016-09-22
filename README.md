@@ -7,5 +7,5 @@ To start the app:
 3. Install compass (gem install compass)
 4. Run grunt watch: 'grunt watch' to autocompile the scss files on change.
 5. Run the server:
- - Linux: DEBUG=nodebackup:* npm start
- - Windows: set DEBUG=nodebackup:* & npm start
+ - Linux: DEBUG=nodebackup:* npm start OR node_modules/nodemon/bin/nodemon.js (that's needed for autorestart of the server on file change)
+ - Windows: set DEBUG=nodebackup:* & npm start OR node_modules/nodemon/bin/nodemon.js (need to test this)
