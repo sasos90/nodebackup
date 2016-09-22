@@ -5,21 +5,21 @@ var MongoClient = require('mongodb').MongoClient;
 var collectionList = ["storages", "relations"];
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 
-    MongoClient.connect('mongodb://localhost:27017/nodebackup', function(err, db) {
+    MongoClient.connect('mongodb://localhost:27017/nodebackup', (err, db) => {
         if (err) {
             throw err;
         }
 
         // create collections in case they doesn't exist
         console.log("Start creating collections");
-        createCollections(db, function() {
+        createCollections(db, () => {
 
             // we start here!
             console.log("Really done");
 
-            /*db.collection('storages').find().toArray(function(err, result) {
+            /*db.collection('storages').find().toArray((err, result) => {
                 if (err) {
                     throw err;
                 }
@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
 function createCollections(db, callback, index = 0) {
 
     if (collectionList.length !== index) {
-        db.createCollection(collectionList[index]).then(function() {
+        db.createCollection(collectionList[index]).then(() => {
             console.log("Created " + collectionList[index]);
             createCollections(db, callback, ++index);
         });
