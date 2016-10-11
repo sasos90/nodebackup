@@ -19,12 +19,16 @@ router.get('/', (req, res, next) => {
             // we start here!
             console.log("Really done");
 
-            /*db.collection('storages').find().toArray((err, result) => {
+            db.collection('storages').find().toArray((err, result) => {
                 if (err) {
                     throw err;
                 }
-                console.log(result);
-            });*/
+
+                console.log("List of storages:");
+                for (var storage of result) {
+                    console.log(storage);
+                }
+            });
         });
     });
 
