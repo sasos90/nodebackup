@@ -1,38 +1,23 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient;
+var mongoose = require("mongoose");
+var db = mongoose.connection;
 
 var collectionList = ["storages", "relations"];
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
 
-    MongoClient.connect('mongodb://localhost:27017/nodebackup', (err, db) => {
-        if (err) {
-            throw err;
-        }
-
-        // create collections in case they doesn't exist
-        console.log("Start creating collections");
-        createCollections(db, () => {
-
-            // we start here!
-            console.log("Really done");
-
-            db.collection('storages').find().toArray((err, result) => {
-                if (err) {
-                    throw err;
-                }
-
-                console.log("List of storages:");
-                for (var storage of result) {
-                    console.log(storage);
-                }
-            });
-        });
+    mongoose.connect("mongodb://localhost:27017/nodebackup");
+    db.on("error", function() {
+        console.error(console, "connection error:");
+    });
+    db.once("open", function() {
+        // we're connected!
+        console.log("DB connection opened now");
     });
 
-    res.render('index', { title: 'Express' });
+    res.render("index", { title: "Express" });
 });
 
 function createCollections(db, callback, index = 0) {
