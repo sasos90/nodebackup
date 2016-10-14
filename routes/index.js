@@ -31,7 +31,7 @@ router.get("/", (req, res, next) => {
 
 var render = () => {
 
-    Storage.findHierarchy((hierarchyMap) => {
+    Storage.getHierarchy((hierarchyMap) => {
         console.log("=======");
         console.log(hierarchyMap);
         console.log("=======");

@@ -11,7 +11,7 @@ var storageSchema = mongoose.Schema({
     backupToStorageId: String,
     backupStorageObject: this
 });
-storageSchema.statics.findHierarchy = (callback) => {
+storageSchema.statics.getHierarchy = (callback) => {
 
     Storage.find({
         backupToStorageId: { $ne: null }
