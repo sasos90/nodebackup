@@ -14,10 +14,12 @@ router.get("/", (req, res, next) => {
     db.once("open", () => {
         // we're connected!
         console.log("DB connection opened now");
-        var storageItem = new Storage({
-            name: "Ime Storage-aaaa",
-            vendorId: "vendorIDDD",
-            productId: "productIDDD"
+
+        // how to create a storage item
+        /*var storageItem = new Storage({
+            name: "USB stick 1",
+            vendorId: "vendorID_1",
+            productId: "productID_1"
         });
         storageItem.save((err, insertedItem) => {
             if (err) {
@@ -25,7 +27,7 @@ router.get("/", (req, res, next) => {
                 return console.error(err);
             }
             console.log("New storage item inserted:", insertedItem);
-        });
+        });*/
     });
 
     res.render("index", { title: "Express" });
