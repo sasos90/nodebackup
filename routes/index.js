@@ -1,16 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
+var Storage = require('../models/Storage');
 var db = mongoose.connection;
-
-// Mongoose schemas
-var storageSchema = mongoose.Schema({
-    name: String,
-    vendorId: String,
-    productId: String,
-    backupToStorageId: String
-});
-var Storage = mongoose.model("Storage", storageSchema);
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
@@ -32,7 +24,7 @@ router.get("/", (req, res, next) => {
                 console.error("NOT INSERTED");
                 return console.error(err);
             }
-            console.log("New storage item inserted");
+            console.log("New storage item inserted:", insertedItem);
         });
     });
 
