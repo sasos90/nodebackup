@@ -7,7 +7,8 @@ var db = mongoose.connection;
 var storageSchema = mongoose.Schema({
     name: String,
     vendorId: String,
-    productId: String
+    productId: String,
+    backupToStorageId: String
 });
 var Storage = mongoose.model("Storage", storageSchema);
 
@@ -31,7 +32,7 @@ router.get("/", (req, res, next) => {
                 console.error("NOT INSERTED");
                 return console.error(err);
             }
-            console.log("INSERTEEED");
+            console.log("New storage item inserted");
         });
     });
 
