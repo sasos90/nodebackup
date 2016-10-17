@@ -8,8 +8,8 @@ var storageSchema = mongoose.Schema({
     name: String,
     vendorId: String,
     productId: String,
-    backupToStorageId: String,
-    backupStorageObject: this
+    targetStorageId: String,
+    targetStorage: this
 });
 storageSchema.statics.getHierarchy = (callback) => {
 
@@ -27,16 +27,16 @@ var assignTargets = (hierarchyMap, result, callback) => {
     let allAssigned = true;
 
     for (let storage of hierarchyMap) {
-        if (typeof storage.backupStorageObject === "undefined") {
+        if (typeof storage.targetStorage === "undefined") {
 
             // we need to find it and attach it :)
-            Storage.findById(storage.backupToStorageId, (err, item) => {
+            Storage.findById(storage.targetStorageId, (err, item) => {
                 if (err) {
                     console.error(err);
                 }
 
                 // assign object
-                storage.backupStorageObject = item;
+                storage.targetStorage = item;
                 result.push(storage);
                 assignTargets(hierarchyMap, result, callback);
             });
