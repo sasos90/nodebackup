@@ -14,7 +14,7 @@ var storageSchema = mongoose.Schema({
 storageSchema.statics.getHierarchy = (callback) => {
 
     Storage.find({
-        backupToStorageId: { $ne: null }
+        targetStorageId: { $ne: null }
     }, (err, storages) => {
 
         assignTargets(storages, [], callback);
