@@ -35,10 +35,12 @@ var assignTargets = (hierarchyMap, result, callback) => {
                     console.error(err);
                 }
 
-                // assign object
-                storage.targetStorage = item;
-                result.push(storage);
-                assignTargets(hierarchyMap, result, callback);
+                if (item !== null) {
+                    // assign object
+                    storage.targetStorage = item;
+                    result.push(storage);
+                    assignTargets(hierarchyMap, result, callback);
+                }
             });
             allAssigned = false;
             break;
