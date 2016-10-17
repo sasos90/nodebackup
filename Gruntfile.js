@@ -21,8 +21,8 @@ module.exports = function(grunt){
                 separator: ";"
             },
             dist: {
-                src: ["js/*.js"],
-                dest: "js/all.js"
+                src: ["source/js/*.js"],
+                dest: "public/js/all.js"
             }
         },
         copy: {
@@ -30,15 +30,21 @@ module.exports = function(grunt){
                 files: [
                     {
                         expand: true,
-                        cwd: "bower_components/jquery/",
+                        cwd: "source/js/libs/",
                         src: ["jquery.min.js"],
-                        dest: "../public/js/lib/"
+                        dest: "public/js/libs/"
                     },
                     {
                         expand: true,
-                        cwd: "relativesource/path/",
-                        src: ["filename.min.js"],
-                        dest: "../relativedestination/path/"
+                        cwd: "source/js/libs/",
+                        src: ["jquery-ui.min.js"],
+                        dest: "public/js/libs/"
+                    },
+                    {
+                        expand: true,
+                        cwd: "source/sass/libs/",
+                        src: ["jquery-ui.min.css"],
+                        dest: "public/css/libs/"
                     }
                 ]
             }
@@ -46,7 +52,7 @@ module.exports = function(grunt){
         uglify: {
             build: {
                 files: {
-                    "js/all.min.js": ["js/all.js"]
+                    "public/js/all.min.js": ["public/js/all.js"]
                 }
             }
         },
@@ -55,8 +61,8 @@ module.exports = function(grunt){
                 options: {
 
                 },
-                src: "stylesheets/style.css",
-                dest: "stylesheets/style.css"
+                src: "public/css/style.css",
+                dest: "public/css/style.css"
             }
         },
         sass: {
@@ -65,8 +71,8 @@ module.exports = function(grunt){
                     style: "compressed",
                 },
                 files: [{
-                    src: ["sass/style.scss"],
-                    dest: "stylesheets/style.css",
+                    src: ["source/sass/style.scss"],
+                    dest: "public/css/style.css",
                     ext: ".css"
                 }]
             },
@@ -78,8 +84,8 @@ module.exports = function(grunt){
                     lineNumbers: true,
                 },
                 files: [{
-                    src: ["sass/style.scss"],
-                    dest: "stylesheets/style.css",
+                    src: ["source/sass/style.scss"],
+                    dest: "public/css/style.css",
                     ext: ".css"
                 }]}
         },
@@ -89,7 +95,7 @@ module.exports = function(grunt){
                 tasks: ["sass:dev", "autoprefixer:dev"]
             },
             js: {
-                files: ["js/somefolder/*.js", "js/someotherfolder/*.js"],
+                files: ["source/js/*.js"],
                 tasks: ["copy", "concat"]
             }
         }
