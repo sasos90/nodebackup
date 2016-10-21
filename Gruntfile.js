@@ -72,7 +72,7 @@ module.exports = function(grunt){
                 },
                 files: [{
                     src: ["source/sass/style.scss"],
-                    dest: "public/css/style.css",
+                    dest: "public/css/style.min.css",
                     ext: ".css"
                 }]
             },
@@ -101,5 +101,5 @@ module.exports = function(grunt){
         }
     });
     grunt.registerTask("default", ["sass:dev", "autoprefixer:dev", "concat", "copy"]);
-    grunt.registerTask("build", ["sass:dist", "autoprefixer:dev", "copy", "uglify", "concat"]);
+    grunt.registerTask("build", ["sass:dist", "autoprefixer:dev", "copy", "concat", "uglify"]);
 };
