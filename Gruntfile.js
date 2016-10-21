@@ -101,5 +101,5 @@ module.exports = function(grunt){
         }
     });
     grunt.registerTask("default", ["sass:dev", "autoprefixer:dev", "concat", "copy"]);
-    grunt.registerTask("build", ["sass:dist", "autoprefixer:dev", "copy", "uglify", "concat"]);
+    grunt.registerTask("build", ["sass:dist", "autoprefixer:dev", "copy", "concat", "uglify"]);
 };
