@@ -33,7 +33,8 @@ var render = () => {
 
     Storage.getHierarchy((hierarchyMap) => {
         console.log("=======");
-        console.log(hierarchyMap);
+
+        console.log(hierarchyMap[0].name );
         console.log("=======");
     });
 
