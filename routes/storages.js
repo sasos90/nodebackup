@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
     }
 });
 
-var render = (res) => {
+let render = (res) => {
 
     Storage.find((err, storages) => {
         if (err) return console.error(err);

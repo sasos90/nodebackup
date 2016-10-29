@@ -29,7 +29,7 @@ router.get("/", (req, res, next) => {
     res.render("index", { title: "Express" });
 });
 
-var render = () => {
+let render = () => {
 
     Storage.getHierarchy((hierarchyMap) => {
         console.log("=======");
