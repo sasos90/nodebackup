@@ -20,21 +20,24 @@ router.get("/", (req, res, next) => {
         db.once("open", () => {
             // we're connected!
             console.log("DB connection opened now");
-            render();
+            render(res);
         });
     } else {
-        render();
+        render(res);
     }
-
-    res.render("index", { title: "Express" });
 });
 
-let render = () => {
+let render = (res) => {
 
     Storage.getHierarchy((hierarchyMap) => {
         console.log("=======");
         console.log(hierarchyMap);
         console.log("=======");
+
+        res.render("index", {
+            title: "Express",
+            hierarchy: hierarchyMap
+        });
     });
 
     // how to update storage item

@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
+    #hierarchy-wrapper
+        - each relation in hierarchy
+            .relation-item
+                .source-item(style="float: left;")
+                    span.relation= relation.name
+                .target-item(style="float: left;")
+                    span.relation= relation.targetStorage.name
