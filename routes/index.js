@@ -20,7 +20,8 @@ let render = (res) => {
 
         res.render("index", {
             title: "Express",
-            assignedStorages: assignedStorages
+            assignedStorages: assignedStorages,
+            unassignedStorages: unassignedStorages
         });
     });
 
