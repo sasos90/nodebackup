@@ -11,14 +11,16 @@ router.get("/", (req, res, next) => {
 
 let render = (res) => {
 
-    Storage.getHierarchy((hierarchyMap) => {
+    Storage.getHierarchy((assignedStorages, unassignedStorages) => {
         console.log("=======");
-        console.log(hierarchyMap);
+        console.log(assignedStorages);
+        console.log("---------------------------");
+        console.log(unassignedStorages);
         console.log("=======");
 
         res.render("index", {
             title: "Express",
-            hierarchy: hierarchyMap
+            assignedStorages: assignedStorages
         });
     });
 

@@ -17,19 +17,24 @@ storageSchema.statics.getHierarchy = (callback) => {
         targetStorageId: { $ne: null }
     }, (err, storages) => {
 
-        assignTargets(storages, [], 0, storages.length, callback);
+        let assignedStorageIds = [];
+        for (let storage of storages) {
+            assignedStorageIds.push(storage.targetStorageId);
+            assignedStorageIds.push(storage.id);
+        }
+        console.log(assignedStorageIds);
+
+        assignTargets(storages, [], 0, storages.length, assignedStorageIds, callback);
     });
 };
 var Storage = mongoose.model("Storage", storageSchema);
 
-var assignTargets = (storages, assignedTargets, index, size, callback) => {
+var assignTargets = (storages, assignedTargets, index, size, assignedStorageIds, callback) => {
 
     let storage = storages[index];
     // we need to find it and attach it :)
     Storage.findById(storage.targetStorageId, (err, item) => {
         if (err) { console.error(err); }
-
-        console.log("Index = " + index);
 
         // assign object
         if (item !== null) {
@@ -41,11 +46,17 @@ var assignTargets = (storages, assignedTargets, index, size, callback) => {
 
         // whether finish the process or assign next one
         if (index === (size - 1)) {
-            console.log("FINISHED");
-            callback(assignedTargets);
+
+            // also get unassigned storages
+            Storage.find({
+                _id: { $nin: assignedStorageIds }
+            }, (err, unassignedStorages) => {
+
+                // finally finish the process
+                callback(assignedTargets, unassignedStorages);
+            });
         } else {
-            console.log("ANOTHER ONE");
-            assignTargets(storages, assignedTargets, ++index, size, callback);
+            assignTargets(storages, assignedTargets, ++index, size, assignedStorageIds, callback);
         }
     });
 };
