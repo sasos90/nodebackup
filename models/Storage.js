@@ -17,38 +17,37 @@ storageSchema.statics.getHierarchy = (callback) => {
         targetStorageId: { $ne: null }
     }, (err, storages) => {
 
-        assignTargets(storages, [], callback);
+        assignTargets(storages, [], 0, storages.length, callback);
     });
 };
 var Storage = mongoose.model("Storage", storageSchema);
 
-var assignTargets = (hierarchyMap, result, callback) => {
+var assignTargets = (storages, assignedTargets, index, size, callback) => {
 
-    let allAssigned = true;
+    let storage = storages[index];
+    // we need to find it and attach it :)
+    Storage.findById(storage.targetStorageId, (err, item) => {
+        if (err) { console.error(err); }
 
-    for (let storage of hierarchyMap) {
-        if (typeof storage.targetStorage === "undefined") {
+        console.log("Index = " + index);
 
-            // we need to find it and attach it :)
-            Storage.findById(storage.targetStorageId, (err, item) => {
-                if (err) {
-                    console.error(err);
-                }
-
-                if (item !== null) {
-                    // assign object
-                    storage.targetStorage = item;
-                    result.push(storage);
-                    assignTargets(hierarchyMap, result, callback);
-                }
-            });
-            allAssigned = false;
-            break;
+        // assign object
+        if (item !== null) {
+            storage.targetStorage = item;
         }
-    }
-    if (allAssigned) {
-        callback(result);
-    }
+
+        // put into array
+        assignedTargets.push(storage);
+
+        // whether finish the process or assign next one
+        if (index === (size - 1)) {
+            console.log("FINISHED");
+            callback(assignedTargets);
+        } else {
+            console.log("ANOTHER ONE");
+            assignTargets(storages, assignedTargets, ++index, size, callback);
+        }
+    });
 };
 
 module.exports = Storage;
