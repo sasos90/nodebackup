@@ -10,8 +10,10 @@ block content
                     span.relation= relation.name + " -> "
                 .target-item(style="float: left;")
                     span.relation= relation.targetStorage.name
-    #unassigned-storages-wrapper
+        //    Unassigned storages
         - each storage in unassignedStorages
             .relation-item(style="overflow: hidden;")
-                .item(style="float: left;")
+                .source-item(style="float: left;")
                     span.relation= storage.name
+                .target-item(style="float: left;")
+                    span.relation= Empty
