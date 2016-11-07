@@ -1,0 +1,50 @@
+<html ng-app="app">
+<head>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript">
+        app = angular.module('app',[]);
+        app.controller('MyCtrl',function($scope) {
+            $scope.myData = [];
+            $scope.addData = function() {
+                $scope.myData.push($scope.inData);
+                $scope.inData="";
+            }
+            $scope.removeData = function(selData) {
+                $scope.myData.splice($scope.myData.indexOf(selData),1);
+            }
+        });
+    </script>
+    <style>
+        body {
+            background: wheat;
+        }
+        body {
+            margin:50px 0px; padding:0px;
+            text-align:center;
+        }
+
+        #Content {
+            width:400px;
+            margin:0px auto;
+            text-align:left;
+            padding:15px;
+            border:1px dashed #333;
+        }
+    </style>
+</head>
+<body ng-controller="MyCtrl">
+<label>Enter data to add : </label>
+<input type="text" name="inData" ng-model="inData" />
+<input type="button" ng-click="addData()" value="Add Data" />
+<center><table border="2">
+    <tr>
+        <th>Added Disks</th>
+    </tr>
+    <tr ng-repeat="data in myData" >
+        <td>{{data}}</td>
+        <td><a href="" ng-click="editData(data)">Edit</a>
+        <td><a href="" ng-click="removeData(data)">Remove</a>
+    </tr>
+</table></center>
+</body>
+</html>

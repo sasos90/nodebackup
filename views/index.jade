@@ -1,5 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
+    #assigned-storages-wrapper
+        - each relation in assignedStorages
+            .relation-item(style="overflow: hidden;")
+                .source-item(style="float: left;")
+                    span.relation= relation.name + " -> "
+                .target-item(style="float: left;")
+                    span.relation= relation.targetStorage.name
+        //    Unassigned storages
+        - each storage in unassignedStorages
+            .relation-item(style="overflow: hidden;")
+                .source-item(style="float: left;")
+                    span.relation= storage.name
+                .target-item(style="float: left;")
+                    span.relation= Empty

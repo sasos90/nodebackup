@@ -4,9 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('nodebackup:server');
-var http = require('http');
+var debug = require('debug')('nodebackup:server'),
+    db = require('../models/db'),
+    http = require('http'),
+    app = require('../app');
 
 /**
  * Get port from environment and store in Express.

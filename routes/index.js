@@ -1,40 +1,28 @@
 var express = require("express");
 var router = express.Router();
 var mongoose = require("mongoose");
-var Storage = require('../models/Storage');
-var db = mongoose.connection;
+var Storage = mongoose.model("Storage");
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
 
-    if (mongoose.connection.readyState === 0) {
-        var client = mongoose.connect("mongodb://localhost:27017/nodebackup");
-    }
-    db.on("error", (err) => {
-        console.error(err);
-        console.error("connection error:");
-    });
-
-    // check if database is opened
-    if (mongoose.connection.readyState === 0) {
-        db.once("open", () => {
-            // we're connected!
-            console.log("DB connection opened now");
-            render();
-        });
-    } else {
-        render();
-    }
-
-    res.render("index", { title: "Express" });
+    render(res);
 });
 
-var render = () => {
+let render = (res) => {
 
-    Storage.getHierarchy((hierarchyMap) => {
+    Storage.getHierarchy((assignedStorages, unassignedStorages) => {
         console.log("=======");
-        console.log(hierarchyMap);
+        console.log(assignedStorages);
+        console.log("---------------------------");
+        console.log(unassignedStorages);
         console.log("=======");
+
+        res.render("index", {
+            title: "Express",
+            assignedStorages: assignedStorages,
+            unassignedStorages: unassignedStorages
+        });
     });
 
     // how to update storage item

@@ -17,38 +17,48 @@ storageSchema.statics.getHierarchy = (callback) => {
         targetStorageId: { $ne: null }
     }, (err, storages) => {
 
-        assignTargets(storages, [], callback);
+        let assignedStorageIds = [];
+        for (let storage of storages) {
+            assignedStorageIds.push(storage.targetStorageId);
+            assignedStorageIds.push(storage.id);
+        }
+        console.log(assignedStorageIds);
+
+        assignTargets(storages, [], 0, storages.length, assignedStorageIds, callback);
     });
 };
 var Storage = mongoose.model("Storage", storageSchema);
 
-var assignTargets = (hierarchyMap, result, callback) => {
+var assignTargets = (storages, assignedTargets, index, size, assignedStorageIds, callback) => {
 
-    let allAssigned = true;
+    let storage = storages[index];
+    // we need to find it and attach it :)
+    Storage.findById(storage.targetStorageId, (err, item) => {
+        if (err) { console.error(err); }
 
-    for (let storage of hierarchyMap) {
-        if (typeof storage.targetStorage === "undefined") {
-
-            // we need to find it and attach it :)
-            Storage.findById(storage.targetStorageId, (err, item) => {
-                if (err) {
-                    console.error(err);
-                }
-
-                if (item !== null) {
-                    // assign object
-                    storage.targetStorage = item;
-                    result.push(storage);
-                    assignTargets(hierarchyMap, result, callback);
-                }
-            });
-            allAssigned = false;
-            break;
+        // assign object
+        if (item !== null) {
+            storage.targetStorage = item;
         }
-    }
-    if (allAssigned) {
-        callback(result);
-    }
+
+        // put into array
+        assignedTargets.push(storage);
+
+        // whether finish the process or assign next one
+        if (index === (size - 1)) {
+
+            // also get unassigned storages
+            Storage.find({
+                _id: { $nin: assignedStorageIds }
+            }, (err, unassignedStorages) => {
+
+                // finally finish the process
+                callback(assignedTargets, unassignedStorages);
+            });
+        } else {
+            assignTargets(storages, assignedTargets, ++index, size, assignedStorageIds, callback);
+        }
+    });
 };
 
 module.exports = Storage;
