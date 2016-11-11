@@ -1,0 +1,8 @@
+#assigned-storages-wrapper {
+    .relation-item {
+        @include clearfix();
+
+        background: #777620;
+        padding: 10px;
+    }
+}
