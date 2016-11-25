@@ -8,24 +8,28 @@ block content
             - each relation in assignedStorages
                 .relation-item
                     .source-item
-                        span.relation= relation.name + " -> "
+                        select
+                            option(value="-1") None
+                            - each storage in allStorages
+                                option(value=storage.id selected=(storage.id === relation.id)) #{storage.name}
+                        // span.relation= relation.name + " -> "
                     .target-item
                         select
-                            option(value="0") Empty
-                            option(value="volvo" selected=true) Volvo
-                            option(value="saab") Saab
-                            option(value="mercedes") Mercedes
-                            option(value="audi") Audi
+                            option(value="-1") None
+                            - each storage in allStorages
+                                option(value=storage.id selected=(storage.id === relation.targetStorage.id)) #{storage.name}
                         // span.relation= relation.targetStorage.name
             //    Unassigned storages
-            - each storage in unassignedStorages
+            - each unusedStorage in unassignedStorages
                 .relation-item
                     .source-item
-                        span.relation= storage.name
+                        select
+                            option(value="-1") None
+                            - each storage in allStorages
+                                option(value=storage.id selected=(storage.id === unusedStorage.id)) #{storage.name}
+                        // span.relation= storage.name
                     .target-item
                         select
-                            option(value="0") Empty
-                            option(value="volvo") Volvo
-                            option(value="saab") Saab
-                            option(value="mercedes") Mercedes
-                            option(value="audi") Audi
+                            option(value="-1") None
+                            - each storage in allStorages
+                                option(value=storage.id) #{storage.name}

@@ -18,10 +18,14 @@ let render = (res) => {
         console.log(unassignedStorages);
         console.log("=======");
 
-        res.render("index", {
-            title: "Express",
-            assignedStorages: assignedStorages,
-            unassignedStorages: unassignedStorages
+        Storage.find({}, (err, allStorages) => {
+
+            res.render("index", {
+                title: "Express",
+                allStorages: allStorages,
+                assignedStorages: assignedStorages,
+                unassignedStorages: unassignedStorages
+            });
         });
     });
 
