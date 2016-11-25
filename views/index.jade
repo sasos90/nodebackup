@@ -11,14 +11,14 @@ block content
                         select
                             option(value="-1") None
                             - each storage in allStorages
-                                option(value=storage.id selected=(storage.id === relation.id)) #{storage.name}
-                        // span.relation= relation.name + " -> "
+                                - if (storage.id === relation.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id selected=(storage.id === relation.id)) #{storage.name}
                     .target-item
                         select
                             option(value="-1") None
                             - each storage in allStorages
-                                option(value=storage.id selected=(storage.id === relation.targetStorage.id)) #{storage.name}
-                        // span.relation= relation.targetStorage.name
+                                - if (storage.id === relation.targetStorage.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id selected=(storage.id === relation.targetStorage.id)) #{storage.name}
             //    Unassigned storages
             - each unusedStorage in unassignedStorages
                 .relation-item
@@ -26,10 +26,11 @@ block content
                         select
                             option(value="-1") None
                             - each storage in allStorages
-                                option(value=storage.id selected=(storage.id === unusedStorage.id)) #{storage.name}
-                        // span.relation= storage.name
+                                - if (storage.id === unusedStorage.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id selected=(storage.id === unusedStorage.id)) #{storage.name}
                     .target-item
                         select
                             option(value="-1") None
                             - each storage in allStorages
-                                option(value=storage.id) #{storage.name}
+                                - if (storage.id === unusedStorage.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id) #{storage.name}
