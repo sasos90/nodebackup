@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    .assigned-storages-wrapper
+        .assigned-storages
+            - each relation in assignedStorages
+                .relation-item
+                    .source-item
+                        select
+                            option(value="-1") None
+                            - each storage in allStorages
+                                - if (storage.id === relation.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id selected=(storage.id === relation.id)) #{storage.name}
+                    .target-item
+                        select
+                            option(value="-1") None
+                            - each storage in allStorages
+                                - if (storage.id === relation.targetStorage.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id selected=(storage.id === relation.targetStorage.id)) #{storage.name}
+            //    Unassigned storages
+            - each unusedStorage in unassignedStorages
+                .relation-item
+                    .source-item
+                        select
+                            option(value="-1") None
+                            - each storage in allStorages
+                                - if (storage.id === unusedStorage.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id selected=(storage.id === unusedStorage.id)) #{storage.name}
+                    .target-item
+                        select
+                            option(value="-1") None
+                            - each storage in allStorages
+                                - if (storage.id === unusedStorage.id || assignedIds.indexOf(storage.id) === -1)
+                                    option(value=storage.id) #{storage.name}
